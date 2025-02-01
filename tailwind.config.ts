@@ -29,11 +29,11 @@ export default {
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#E5F6FF",
-          foreground: "#0F4C5C",
+          DEFAULT: "#2A9D8F",
+          foreground: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#2A9D8F",
+          DEFAULT: "#45B7CE",
           foreground: "#FFFFFF",
         },
         destructive: {
