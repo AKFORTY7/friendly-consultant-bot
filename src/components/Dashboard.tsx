@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GaugeTable } from "./GaugeTable";
 
 export function Dashboard() {
   return (
@@ -15,7 +16,7 @@ export function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">2</CardTitle>
               <CardDescription className="text-center">ACTIVE GAGES</CardDescription>
             </CardHeader>
             <CardContent>
@@ -26,7 +27,7 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">1</CardTitle>
               <CardDescription className="text-center">INACTIVE GAGES</CardDescription>
             </CardHeader>
             <CardContent>
@@ -37,7 +38,7 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">1</CardTitle>
               <CardDescription className="text-center">SCHEDULED</CardDescription>
             </CardHeader>
             <CardContent>
@@ -59,7 +60,7 @@ export function Dashboard() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
@@ -68,13 +69,13 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">1</CardTitle>
               <CardDescription className="text-center">DUE 30 DAYS</CardDescription>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">1</CardTitle>
               <CardDescription className="text-center">DUE 60 DAYS</CardDescription>
             </CardHeader>
           </Card>
@@ -84,6 +85,12 @@ export function Dashboard() {
               <CardDescription className="text-center">DUE 90 DAYS</CardDescription>
             </CardHeader>
           </Card>
+        </div>
+
+        {/* Gauge Table */}
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold mb-4">Gauge List</h2>
+          <GaugeTable />
         </div>
       </section>
 
@@ -111,7 +118,7 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-bold text-center">0</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">2</CardTitle>
               <CardDescription className="text-center">GAGES USED</CardDescription>
             </CardHeader>
             <CardContent>
