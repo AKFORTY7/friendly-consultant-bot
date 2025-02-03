@@ -7,124 +7,310 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Gauge, GaugeType, GaugeStatus, GaugeCondition } from "@/types/gauge";
+import { useState } from "react";
+
+const gaugeTypes: GaugeType[] = [
+  "Thread",
+  "Ring",
+  "Plain",
+  "Plug",
+  "Vernier",
+  "Pressure",
+  "Temperature",
+  "Micrometer",
+  "Other",
+];
+
+const gaugeStatuses: GaugeStatus[] = [
+  "Active",
+  "Inactive",
+  "Maintenance",
+  "Calibration",
+  "Retired",
+];
+
+const gaugeConditions: GaugeCondition[] = [
+  "Good",
+  "Fair",
+  "Needs Repair",
+  "Out of Calibration",
+  "Damaged",
+];
 
 export function GaugeForm() {
+  const [formData, setFormData] = useState<Partial<Gauge>>({});
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+  };
+
+  const handleChange = (field: keyof Gauge, value: any) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
-    <div className="space-y-8">
-      {/* Gauge Status */}
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Basic Information */}
       <div className="rounded-lg border bg-card p-6">
-        <h2 className="mb-4 text-lg font-semibold">Gauge Status</h2>
-        <div className="grid grid-cols-3 gap-4">
+        <h2 className="text-lg font-semibold mb-4">Basic Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label>Name/Description</Label>
+            <Input
+              placeholder="Enter gauge name"
+              onChange={(e) => handleChange("name", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Type/Category</Label>
+            <Select onValueChange={(value) => handleChange("type", value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                {gaugeTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>Manufacturer</Label>
+            <Input
+              placeholder="Enter manufacturer"
+              onChange={(e) => handleChange("manufacturer", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Model Number</Label>
+            <Input
+              placeholder="Enter model number"
+              onChange={(e) => handleChange("modelNumber", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Serial Number</Label>
+            <Input
+              placeholder="Enter serial number"
+              onChange={(e) => handleChange("serialNumber", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Purchase Date</Label>
+            <Input
+              type="date"
+              onChange={(e) => handleChange("purchaseDate", e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Specification Details */}
+      <div className="rounded-lg border bg-card p-6">
+        <h2 className="text-lg font-semibold mb-4">Specification Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label>Measurement Range</Label>
+            <Input
+              placeholder="Enter measurement range"
+              onChange={(e) => handleChange("measurementRange", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Resolution</Label>
+            <Input
+              placeholder="Enter resolution"
+              onChange={(e) => handleChange("resolution", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Accuracy</Label>
+            <Input
+              placeholder="Enter accuracy"
+              onChange={(e) => handleChange("accuracy", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Units of Measurement</Label>
+            <Input
+              placeholder="Enter units"
+              onChange={(e) => handleChange("unitsOfMeasurement", e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Calibration Information */}
+      <div className="rounded-lg border bg-card p-6">
+        <h2 className="text-lg font-semibold mb-4">Calibration Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label>Calibration Date</Label>
+            <Input
+              type="date"
+              onChange={(e) => handleChange("calibrationDate", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Next Calibration Due</Label>
+            <Input
+              type="date"
+              onChange={(e) => handleChange("nextCalibrationDue", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Certificate Number</Label>
+            <Input
+              placeholder="Enter certificate number"
+              onChange={(e) =>
+                handleChange("calibrationCertificateNumber", e.target.value)
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Calibration Interval</Label>
+            <Input
+              placeholder="Enter interval"
+              onChange={(e) => handleChange("calibrationInterval", e.target.value)}
+            />
+          </div>
+          <div className="col-span-2 space-y-2">
+            <Label>Calibration Procedure</Label>
+            <Textarea
+              placeholder="Enter calibration procedure"
+              onChange={(e) =>
+                handleChange("calibrationProcedure", e.target.value)
+              }
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Status and Location */}
+      <div className="rounded-lg border bg-card p-6">
+        <h2 className="text-lg font-semibold mb-4">Status and Location</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label>Status</Label>
-            <Select>
+            <Select onValueChange={(value) => handleChange("status", value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
+                {gaugeStatuses.map((status) => (
+                  <SelectItem key={status} value={status}>
+                    {status}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Last Calibration</Label>
-            <Input type="date" />
+            <Label>Condition</Label>
+            <Select onValueChange={(value) => handleChange("condition", value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select condition" />
+              </SelectTrigger>
+              <SelectContent>
+                {gaugeConditions.map((condition) => (
+                  <SelectItem key={condition} value={condition}>
+                    {condition}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="space-y-2">
-            <Label>Next Calibration Due</Label>
-            <Input type="date" />
+            <Label>Current Location</Label>
+            <Input
+              placeholder="Enter location"
+              onChange={(e) => handleChange("currentLocation", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Department</Label>
+            <Input
+              placeholder="Enter department"
+              onChange={(e) => handleChange("department", e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Custodian</Label>
+            <Input
+              placeholder="Enter custodian"
+              onChange={(e) => handleChange("custodian", e.target.value)}
+            />
           </div>
         </div>
       </div>
 
-      {/* Gauge Information */}
+      {/* Documentation */}
       <div className="rounded-lg border bg-card p-6">
-        <h2 className="mb-4 text-lg font-semibold">Gauge Information</h2>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>Gauge ID</Label>
-              <Input placeholder="Enter Gauge ID" />
-            </div>
-            <div className="space-y-2">
-              <Label>Control No.</Label>
-              <Input placeholder="Enter Control Number" />
-            </div>
-            <div className="space-y-2">
-              <Label>Serial No.</Label>
-              <Input placeholder="Enter Serial Number" />
-            </div>
+        <h2 className="text-lg font-semibold mb-4">Documentation</h2>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label>User Manual Reference</Label>
+            <Input
+              placeholder="Enter user manual reference"
+              onChange={(e) => handleChange("userManual", e.target.value)}
+            />
           </div>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>Type</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="type1">Type 1</SelectItem>
-                  <SelectItem value="type2">Type 2</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label>Manufacturer</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select manufacturer" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mfg1">Manufacturer 1</SelectItem>
-                  <SelectItem value="mfg2">Manufacturer 2</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label>Model</Label>
-              <Input placeholder="Enter Model" />
-            </div>
+          <div className="space-y-2">
+            <Label>Notes</Label>
+            <Textarea
+              placeholder="Enter additional notes"
+              onChange={(e) => handleChange("notes", e.target.value)}
+            />
           </div>
         </div>
       </div>
 
-      {/* Assignment Information */}
+      {/* Financial Information */}
       <div className="rounded-lg border bg-card p-6">
-        <h2 className="mb-4 text-lg font-semibold">Gauge Assignment</h2>
-        <div className="grid grid-cols-2 gap-6">
+        <h2 className="text-lg font-semibold mb-4">Financial Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label>Location</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Select location" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="loc1">Location 1</SelectItem>
-                <SelectItem value="loc2">Location 2</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label>Purchase Price</Label>
+            <Input
+              type="number"
+              placeholder="Enter price"
+              onChange={(e) =>
+                handleChange("purchasePrice", parseFloat(e.target.value))
+              }
+            />
           </div>
           <div className="space-y-2">
-            <Label>Assignee</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Select assignee" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="user1">User 1</SelectItem>
-                <SelectItem value="user2">User 2</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label>Depreciation</Label>
+            <Input
+              type="number"
+              placeholder="Enter depreciation"
+              onChange={(e) =>
+                handleChange("depreciation", parseFloat(e.target.value))
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Warranty Period</Label>
+            <Input
+              placeholder="Enter warranty period"
+              onChange={(e) => handleChange("warrantyPeriod", e.target.value)}
+            />
           </div>
         </div>
       </div>
 
       <div className="flex justify-end space-x-4">
-        <Button variant="outline">Cancel</Button>
-        <Button>Save Changes</Button>
+        <Button variant="outline" type="button">
+          Cancel
+        </Button>
+        <Button type="submit">Save Changes</Button>
       </div>
-    </div>
+    </form>
   );
 }
