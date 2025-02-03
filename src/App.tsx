@@ -8,6 +8,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import IssueGauge from "./pages/IssueGauge";
+import ReceiveGauge from "./pages/ReceiveGauge";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,22 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Index />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/issue"
+              element={
+                <ProtectedRoute>
+                  <IssueGauge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/receive"
+              element={
+                <ProtectedRoute>
+                  <ReceiveGauge />
                 </ProtectedRoute>
               }
             />
