@@ -11,6 +11,8 @@ import NotFound from "./pages/NotFound";
 import IssueGauge from "./pages/IssueGauge";
 import ReceiveGauge from "./pages/ReceiveGauge";
 import RepairGauge from "./pages/RepairGauge";
+import GaugeList from "./pages/GaugeList";
+import MissingGauges from "./pages/MissingGauges";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +54,22 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <RepairGauge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/gauges"
+              element={
+                <ProtectedRoute>
+                  <GaugeList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/missing-gauges"
+              element={
+                <ProtectedRoute>
+                  <MissingGauges />
                 </ProtectedRoute>
               }
             />

@@ -16,6 +16,7 @@ import {
   Settings,
   ClipboardList,
   Wrench,
+  AlertTriangle,
 } from "lucide-react";
 
 const menuItems = [
@@ -24,6 +25,7 @@ const menuItems = [
   { title: "Receive Gauge", icon: ArrowDownCircle, path: "/receive" },
   { title: "Repair Gauge", icon: Wrench, path: "/repair" },
   { title: "Gauge List", icon: ClipboardList, path: "/gauges" },
+  { title: "Missing/Found", icon: AlertTriangle, path: "/missing-gauges" },
   { title: "Settings", icon: Settings, path: "/settings" },
 ];
 
