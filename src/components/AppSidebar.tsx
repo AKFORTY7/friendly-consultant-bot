@@ -15,12 +15,14 @@ import {
   ArrowDownCircle,
   Settings,
   ClipboardList,
+  Wrench,
 } from "lucide-react";
 
 const menuItems = [
   { title: "Dashboard", icon: Home, path: "/" },
   { title: "Issue Gauge", icon: ArrowUpCircle, path: "/issue" },
   { title: "Receive Gauge", icon: ArrowDownCircle, path: "/receive" },
+  { title: "Repair Gauge", icon: Wrench, path: "/repair" },
   { title: "Gauge List", icon: ClipboardList, path: "/gauges" },
   { title: "Settings", icon: Settings, path: "/settings" },
 ];

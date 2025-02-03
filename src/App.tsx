@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import IssueGauge from "./pages/IssueGauge";
 import ReceiveGauge from "./pages/ReceiveGauge";
+import RepairGauge from "./pages/RepairGauge";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <ReceiveGauge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/repair"
+              element={
+                <ProtectedRoute>
+                  <RepairGauge />
                 </ProtectedRoute>
               }
             />
