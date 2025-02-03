@@ -1,3 +1,5 @@
+import { GaugeCondition } from './gauge';
+
 export interface GaugeTransaction {
   id: string;
   gaugeId: string;

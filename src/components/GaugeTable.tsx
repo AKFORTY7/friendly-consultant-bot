@@ -1,17 +1,8 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Eye, Edit, Trash2 } from "lucide-react";
+import { Table, TableBody } from "@/components/ui/table";
+import { GaugeTableHeader } from "./gauge-table/GaugeTableHeader";
+import { GaugeTableRow } from "./gauge-table/GaugeTableRow";
 import { Gauge } from "@/types/gauge";
 
-// Sample data - in a real app this would come from your database
 const gauges: Gauge[] = [
   {
     id: "1",
@@ -103,46 +94,10 @@ export function GaugeTable() {
   return (
     <div className="rounded-md border">
       <Table>
-        <TableHeader>
-          <TableRow className="bg-muted/50">
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Next Calibration</TableHead>
-            <TableHead>Custodian</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
+        <GaugeTableHeader />
         <TableBody>
           {gauges.map((gauge) => (
-            <TableRow key={gauge.id}>
-              <TableCell className="font-medium">{gauge.serialNumber}</TableCell>
-              <TableCell>{gauge.name}</TableCell>
-              <TableCell>{gauge.type}</TableCell>
-              <TableCell>
-                <Badge
-                  variant={gauge.status === "Active" ? "default" : "secondary"}
-                >
-                  {gauge.status}
-                </Badge>
-              </TableCell>
-              <TableCell>{gauge.currentLocation}</TableCell>
-              <TableCell>{gauge.nextCalibrationDue}</TableCell>
-              <TableCell>{gauge.custodian}</TableCell>
-              <TableCell className="text-right space-x-2">
-                <Button variant="ghost" size="icon">
-                  <Eye className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <Edit className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </TableCell>
-            </TableRow>
+            <GaugeTableRow key={gauge.id} gauge={gauge} />
           ))}
         </TableBody>
       </Table>
